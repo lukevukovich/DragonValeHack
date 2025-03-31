@@ -19,7 +19,9 @@ def main():
     Main function to execute the Galaxy Flag Hack script.
     """
     hack = DragonValeHack()
+    print("Initialized DragonValeHack instance")
 
+    print(f"Starting hack automation...")
     hack.move_and_click(1750, 950, sleep=2)  # Open market
     hack.move_and_click(450, 800, sleep=3)  # Select decorations
     hack.move_and_click(1200, 80, sleep=1)  # Select search bar
@@ -28,25 +30,28 @@ def main():
     hack.move_and_click(1340, 600, sleep=0.5) # Search button
     hack.move_and_click(350, 540, sleep=0.5)  # Click on the first result (Galaxy Flag)
     hack.open_game_guardian()  # Open Game Guardian overlay
+    hack.select_process()  # Select DragonVale process
+    hack.select_search_tab()  # Select search tab
     hack.click_search_button()  # Select search button
     hack.enter_qword_value(2191473)  # Press each key to search for 2,191,473
     hack.select_qword_search_type()  # Change search type
     hack.search() # Click search button
-    hack.move_and_click(1650, 230, sleep=0.5)  # Select change all values button
-    hack.move_and_click(1410, 550, sleep=0.8)  # Change value to 0 (to get it for free)
-    hack.click_ok_button()  # Click OK button
+    hack.click_change_all_values_button()  # Click on the change all values button
+    hack.enter_qword_value(0)  # Press each key to change value to 0
+    hack.click_yes_button()  # Click yes button
     hack.close_game_guardian()  # Close Game Guardian overlay
     hack.move_and_click(1540, 220, sleep=0.5)  # Close selected item
     hack.click_first_result()  # Click on the first result (Galaxy Flag)
     hack.move_and_click(1150, 900, sleep=1.5)  # Buy the Galaxy Flag for free
     hack.move_and_click(1550, 950)  # Place the Galaxy Flag in the free slot
+    print("Hack automation complete\n")
 
 
 if __name__ == "__main__":
     START = time.time()
 
     try:
-        print("Starting Galaxy Flag Hack...")
+        print("Starting Galaxy Flag Hack...\n")
         main()
     except Exception:
         print(f"Galaxy Flag Hack error: {traceback.format_exc()}")
