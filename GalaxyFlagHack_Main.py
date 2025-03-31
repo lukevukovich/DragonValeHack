@@ -1,5 +1,6 @@
-import pyautogui
+import traceback
 import time
+from src.DragonValeHack import DragonValeHack
 
 """
 Galaxy Flag Hack Script:
@@ -12,145 +13,43 @@ Prerequisites:
     - Ensure Game Guardian is running and DragonVale process selected
 """
 
-START = time.time()
 
-# Open market
-pyautogui.moveTo(1750, 950)
-pyautogui.click()
-time.sleep(2)
+def main():
+    """
+    Main function to execute the Galaxy Flag Hack script.
+    """
+    hack = DragonValeHack()
 
-# Select decorations
-pyautogui.moveTo(450, 800)
-pyautogui.click()
-time.sleep(3)
+    hack.move_and_click(1750, 950, sleep=2)  # Open market
+    hack.move_and_click(450, 800, sleep=3)  # Select decorations
+    hack.move_and_click(1200, 80, sleep=1)  # Select search bar
+    hack.move_and_click(900, 500, sleep=0.1)  # Click in search bar to start typing
+    hack.type("galaxy", interval=0.2)  # Type "galaxy" in the search bar
+    hack.move_and_click(1340, 600, sleep=0.5) # Search button
+    hack.move_and_click(350, 540, sleep=0.5)  # Click on the first result (Galaxy Flag)
+    hack.open_game_guardian()  # Open Game Guardian overlay
+    hack.click_search_button()  # Select search button
+    hack.enter_qword_value(2191473)  # Press each key to search for 2,191,473
+    hack.select_qword_search_type()  # Change search type
+    hack.search() # Click search button
+    hack.move_and_click(1650, 230, sleep=0.5)  # Select change all values button
+    hack.move_and_click(1410, 550, sleep=0.8)  # Change value to 0 (to get it for free)
+    hack.click_ok_button()  # Click OK button
+    hack.close_game_guardian()  # Close Game Guardian overlay
+    hack.move_and_click(1540, 220, sleep=0.5)  # Close selected item
+    hack.click_first_result()  # Click on the first result (Galaxy Flag)
+    hack.move_and_click(1150, 900, sleep=1.5)  # Buy the Galaxy Flag for free
+    hack.move_and_click(1550, 950)  # Place the Galaxy Flag in the free slot
 
-# Select search bar
-pyautogui.moveTo(1200, 80)
-pyautogui.click()
-time.sleep(1)
 
-# Click in search bar to start typing
-pyautogui.moveTo(900, 500)
-pyautogui.click()
-time.sleep(0.1)
+if __name__ == "__main__":
+    START = time.time()
 
-# Type "galaxy" in the search bar, search
-pyautogui.typewrite("galaxy", interval=0.1)
-pyautogui.moveTo(1340, 600)
-pyautogui.click()
+    try:
+        print("Starting Galaxy Flag Hack...")
+        main()
+    except Exception:
+        print(f"Galaxy Flag Hack error: {traceback.format_exc()}")
 
-# Click on the first result (Galaxy Flag)
-pyautogui.moveTo(350, 540)
-pyautogui.click()
-time.sleep(0.5)
-
-# Open Game Guardian overlay
-pyautogui.moveTo(70, 80)
-pyautogui.click()
-time.sleep(0.5)
-
-# Select search button
-pyautogui.moveTo(1730, 230)
-pyautogui.click()
-time.sleep(0.5)
-
-# Press each key to search for 2,191,473
-# 2
-pyautogui.moveTo(1475, 275)
-pyautogui.click()
-time.sleep(0.5)
-
-# 1
-pyautogui.moveTo(1380, 275)
-pyautogui.click()
-time.sleep(0.5)
-
-# 9
-pyautogui.moveTo(1570, 450)
-pyautogui.click()
-time.sleep(0.5)
-
-# 1
-pyautogui.moveTo(1380, 275)
-pyautogui.click()
-time.sleep(0.5)
-
-# 4
-pyautogui.moveTo(1380, 360)
-pyautogui.click()
-time.sleep(0.5)
-
-# 7
-pyautogui.moveTo(1380, 450)
-pyautogui.click()
-time.sleep(0.5)
-
-# 3
-pyautogui.moveTo(1570, 275)
-pyautogui.click()
-time.sleep(0.5)
-
-# Change search type
-pyautogui.moveTo(700, 450)
-pyautogui.click()
-time.sleep(0.5)
-
-# Select data type
-pyautogui.moveTo(800, 700)
-pyautogui.scroll(100)
-pyautogui.scroll(100)
-pyautogui.scroll(100)
-time.sleep(0.5)
-pyautogui.click()
-
-# Try to click new search button (if it appears)
-pyautogui.moveTo(260, 830)
-pyautogui.click()
-time.sleep(1)
-
-# Click search button
-pyautogui.moveTo(1600, 830)
-pyautogui.click()
-time.sleep(1)
-
-# Select change all values button
-pyautogui.moveTo(1650, 230)
-pyautogui.click()
-time.sleep(0.5)
-
-# Change value to 0 (to get it for free)
-pyautogui.moveTo(1410, 550)
-pyautogui.click()
-time.sleep(0.8)
-
-# Click OK button
-pyautogui.moveTo(1650, 830)
-pyautogui.click()
-time.sleep(0.2)
-
-# Close Game Guardian overlay
-pyautogui.moveTo(1815, 80)
-pyautogui.click()
-
-# Close selected item
-pyautogui.moveTo(1540, 220)
-pyautogui.click()
-time.sleep(0.5)
-
-# Click on the first result (Galaxy Flag)
-pyautogui.moveTo(350, 540)
-pyautogui.click()
-time.sleep(0.5)
-
-# Buy the Galaxy Flag for free
-pyautogui.moveTo(1150, 900)
-pyautogui.click()
-time.sleep(1.5)
-
-# Place the Galaxy Flag in the free slot
-pyautogui.moveTo(1550, 950)
-pyautogui.click()
-
-# Print the time taken to execute the script
-END = time.time()
-print(f"Galaxy Flag Hack executed in {END - START:.2f} seconds")
+    END = time.time()
+    print(f"Galaxy Flag Hack executed in {END - START:.2f} seconds")

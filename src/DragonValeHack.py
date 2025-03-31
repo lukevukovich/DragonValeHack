@@ -4,7 +4,7 @@ import time
 
 class DragonValeHack():
     """
-    This class is designed to automate interactions with the Game Guardian overlay in DragonVale.
+    This class is designed to automate interactions with the Game Guardian overlay in DragonVale using Nox simulator.
     """
     def __init__(self):
         """
@@ -27,7 +27,7 @@ class DragonValeHack():
         time.sleep(sleep)
 
 
-    def enter_qword(self, value: int, interval: float = 0.5) -> None:
+    def enter_qword_value(self, value: int, interval: float = 0.5) -> None:
         """
         Enters Q-Word value into the input field by simulating mouse clicks.
 
@@ -55,8 +55,15 @@ class DragonValeHack():
         """
         self.move_and_click(70, 80, sleep=0.5)
 
+    
+    def close_game_guardian(self):
+        """
+        Closes the Game Guardian overlay.
+        """
+        self.move_and_click(1800, 80, sleep=0.3)
 
-    def select_qword_search(self):
+
+    def select_qword_search_type(self):
         """
         Selects the Q-Word search option in the Game Guardian overlay.
         """
@@ -77,9 +84,23 @@ class DragonValeHack():
         self.move_and_click(1730, 230, sleep=0.5)
 
 
-    def enter_search(self):
+    def click_ok_button(self):
         """
-        Click the 'New Search' button in both possible locations.
+        Clicks the OK button in the Game Guardian overlay.
+        """
+        self.move_and_click(1650, 830, sleep=0.2)
+
+
+    def click_first_result(self):
+        """
+        Clicks the first result in the Game Guardian overlay.
+        """
+        self.move_and_click(350, 540, sleep=0.5)
+
+
+    def search(self):
+        """
+        Click the 'New Search' button in both possible locations in the Game Guardian overlay.
         """
         # Click the new search button if it appears
         self.move_and_click(260, 830, sleep=0.5)
@@ -90,6 +111,6 @@ class DragonValeHack():
     
     def type(self, value: str, interval: float = 0.1):
         """
-        Types out a string value into an input field by simulating keystrokes.
+        Types out a string value into an input field by simulating keystrokes in the Game Guardian overlay.
         """
         pyautogui.typewrite(value, interval=interval)
