@@ -127,10 +127,10 @@ class DragonValeHack():
         Click the 'New Search' button in both possible locations in the Game Guardian overlay.
         """
         # Click the new search button if it appears
-        self.move_and_click(260, 830, sleep=0.5)
+        self.move_and_click(260, 830)
 
         # Click the search button if it appears
-        self.move_and_click(1600, 830, sleep=0.5)
+        self.move_and_click(1600, 830, sleep=2)
 
     
     def goto(self) -> None:
