@@ -21,8 +21,8 @@ Process will intercept an item's "Buy Another" value and alter the resource and 
 - Food
 - Gems
 - Event Currency
-- Wishes
-- Eternal essence
-- Abundant essence
-- Vital essence
+- Wishes (if user has wishing well)
+- Eternal essence (if applicable)
+- Abundant essence (if applicable)
+- Vital essence (if applicable)
 - Ethereum
