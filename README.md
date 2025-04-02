@@ -1,7 +1,7 @@
 # DragonValeHack
 Python scripts built to automate DragonVale exploits using GameGuardian and Nox emulator.
 
-All processes support 1080p resolution.
+All processes support 1080p resolution (fullscreen windowed).
 
 ## Item Hack (ItemHack_Main.py)
 Automates the process of hacking in an item for free from the market.

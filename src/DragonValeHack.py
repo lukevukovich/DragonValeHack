@@ -1,5 +1,6 @@
 import pyautogui
 import time
+import pyperclip
 
 
 class DragonValeHack():
@@ -27,7 +28,7 @@ class DragonValeHack():
         time.sleep(sleep)
 
 
-    def enter_qword_value(self, value: int, interval: float = 0.5) -> None:
+    def enter_qword_value(self, value: int, interval: float = 0.3) -> None:
         """
         Enters Q-Word value into the input field by simulating mouse clicks.
 
@@ -112,7 +113,7 @@ class DragonValeHack():
         """
         Clicks the yes button in the Game Guardian overlay.
         """
-        self.move_and_click(1650, 830, sleep=0.2)
+        self.move_and_click(1650, 830, sleep=1)
 
 
     def click_first_result(self) -> None:
@@ -130,7 +131,7 @@ class DragonValeHack():
         self.move_and_click(260, 830)
 
         # Click the search button if it appears
-        self.move_and_click(1600, 830, sleep=2)
+        self.move_and_click(1600, 830, sleep=1.5)
 
     
     def goto(self) -> None:
@@ -166,3 +167,16 @@ class DragonValeHack():
         """
         pyautogui.press(key)
         time.sleep(sleep)
+
+    
+    def get_copy_value(self) -> int:
+        """
+        Simulates copying the value from the Game Guardian overlay.
+
+        Returns:
+            int: The copied integer value.
+        """
+        pyautogui.hotkey('ctrl', 'c')
+        time.sleep(0.3)
+        value = int(pyperclip.paste())
+        return value

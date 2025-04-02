@@ -14,8 +14,8 @@ Prerequisites:
     - Ensure screen is on free slot (to place the item)
 
 Items:
-    - Galaxy Flag
-    - Mini Moss Rock
+    - Galaxy Flag (level 11 and above)
+    - Famed Flat Rock (below level 11)
 """
 
 

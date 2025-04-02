@@ -1,7 +1,7 @@
 # Item mapping for item and their Q-Word values
 ITEM_MAPPING = {
     "galaxy flag": 2191473,
-    "mini moss rock": 750,
+    "famed flat rock": 1500,
 }
 
 # Resource mapping for resource and number of data entries to skip
@@ -73,6 +73,27 @@ def get_resource_value(resource: str) -> int:
             return value
         except ValueError:
             print("Invalid input. Please enter a number.")
+
+
+def get_resources() -> dict:
+    """
+    Get multiple resources and their values from the user.
+    """
+    resource_mapping = {}
+    for resource, skips in RESOURCE_MAPPING.items():
+        while True:
+            try:
+                value = int(input(f"Enter desired amount of {resource} (0 to skip): ").strip())
+                if value < 0:
+                    print("Please enter a non-negative number.")
+                    continue
+                if value > 0:
+                    resource_mapping[resource] = {"value": value, "skips": skips}
+                break
+            except ValueError:
+                print(f"Invalid input. Please enter a number for {resource}.")
+
+    return resource_mapping
 
 
 def get_success_flag() -> bool:
