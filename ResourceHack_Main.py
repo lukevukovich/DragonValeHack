@@ -41,42 +41,55 @@ def main():
     hack = DragonValeHack()
     print("\nInitialized DragonValeHack instance")
 
-    success_flag = False
-    while not success_flag:
-        print(f"Starting hack automation...")
-        hack.open_game_guardian()  # Open Game Guardian overlay
-        hack.select_process()  # Select DragonVale process
-        hack.select_search_tab()  # Select search tab
-        hack.click_search_button()  # Select search button
-        if hack.get_copy_value() != item_value: # Check if existing value is already set to item value
-            hack.enter_qword_value(item_value)  # Press each key to search for item value
+    print(f"Starting hack automation...")
+    hack.open_game_guardian()  # Open Game Guardian overlay
+    hack.select_process()  # Select DragonVale process
+    hack.select_search_tab()  # Select search tab
+    hack.click_search_button()  # Select search button
+    if hack.get_copy_value() != str(item_value): # Check if existing value is already set to item value
+        hack.enter_qword_value(item_value)  # Press each key to search for item value
         hack.select_qword_search_type()  # Change search type
-        hack.search()  # Click search button
-        hack.click_change_all_values_button()  # Click on the change all values button
-        if resource == "DragonCash":
-            hack.enter_qword_value(-resource_value)  # For DragonCash, directly set the value to the desired amount
-        else:
-            hack.enter_qword_value(0)  # Press each key to change value to 0
-            hack.click_yes_button()  # Click yes button
-            hack.click_first_result()  # Click on the first result (Galaxy Flag)
+    hack.search()  # Click search button
+    hack.click_change_all_values_button()  # Click on the change all values button
+    if resource == "DragonCash":
+        hack.enter_qword_value(-resource_value)  # For DragonCash, directly set the value to the desired amount
+        hack.click_yes_button()  # Click yes button
+        print(f"Hacked {resource_value} DragonCash")
+    else:
+        hack.enter_qword_value(0)  # Press each key to change value to 0
+        hack.click_yes_button()  # Click yes button
+
+        entries = get_num_entries()  # Get the number of entries
+        hack.select_search_tab()  # Select search tab
+        if entries == 0:
+            print("No entries found, quitting hack...\n")
+            hack.close_game_guardian()  # Close Game Guardian overlay
+            return
+        elif entries > 8:
+            print(f"Too many entries ({entries}), quitting hack...\n")
+            hack.close_game_guardian() # Close Game Guardian overlay
+            return
+
+        for i in range(entries):
+            print(f"\nHacking entry {i + 1} of {entries}...")
+            hack.click_result(i + 1) # Click on the result
             hack.goto()  # Go to the resource value
-            hack.arrow_down(resource_skips + 1)  # Skip to the resource value
+            hack.arrow("down", resource_skips + 1)  # Skip to the resource value
             hack.press_key("enter")  # Press enter to select the resource value
             hack.move_and_click(700, 740, sleep=0.5)  # Select Q-Word type
+            if resource != "DragonCash" and hack.get_copy_value() != "0":
+                print(f"Bad entry detected, skipping")
+                [hack.select_search_tab() for _ in range(2)]
+                continue
             hack.enter_qword_value(-resource_value)  # Press each key to change value to the desired amount
-        hack.click_yes_button()  # Click yes button
-        hack.close_game_guardian()  # Close Game Guardian overlay
-        hack.move_and_click(1350, 950, sleep=1.5) # Buy another Galaxy Flag with the hacked resources
-        hack.move_and_click(1550, 950)  # Place the Galaxy Flag in the free slot
-        print("hack automation complete\n")
+            hack.click_yes_button()  # Click yes button
+            hack.select_search_tab()  # Select search tab
+            print(f"Hacked {resource_value} {resource}")
 
-        if resource == "DragonCash":
-            break  # For DragonCash, we can return immediately after setting the value
-
-        success_flag = get_success_flag()  # Ask if the hack was successful
-        if not success_flag:
-            print("Retrying hack...\n")
-            time.sleep(2)
+    hack.close_game_guardian()  # Close Game Guardian overlay
+    hack.move_and_click(1350, 950, sleep=1.5) # Buy another Galaxy Flag with the hacked resources
+    hack.move_and_click(1550, 950)  # Place the Galaxy Flag in the free slot
+    print("hack automation complete\n")
 
 
 if __name__ == "__main__":

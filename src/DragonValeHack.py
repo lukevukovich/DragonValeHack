@@ -28,31 +28,6 @@ class DragonValeHack():
         time.sleep(sleep)
 
 
-    def enter_qword_value(self, value: int, interval: float = 0.3) -> None:
-        """
-        Enters Q-Word value into the input field by simulating mouse clicks.
-
-        Args:
-            value (int): The 64-bit integer value to enter.
-            interval (float, optional): Time in seconds to wait between set keystrokes. Default is 0.5.
-        """
-        # Specify the coordinates for each digit on the screen
-        COLS = (1380, 1475, 1570)
-        ROWS = (270, 360, 450, 540, 630, 720)
-        number_mapping = {1: (COLS[0], ROWS[0]), 2: (COLS[1], ROWS[0]), 3: (COLS[2], ROWS[0]),
-                        4: (COLS[0], ROWS[1]), 5: (COLS[1], ROWS[1]), 6: (COLS[2], ROWS[1]),
-                        7: (COLS[0], ROWS[2]), 8: (COLS[1], ROWS[2]), 9: (COLS[2], ROWS[2]),
-                        0: (COLS[0], ROWS[3]), "-": (COLS[0], ROWS[5]),}
-
-        for digit in str(value):
-            try:
-                digit = int(digit)
-            except ValueError:
-                pass
-            x, y = number_mapping[digit]
-            self.move_and_click(x, y, sleep=interval)
-
-
     def open_game_guardian(self) -> None:
         """
         Opens the Game Guardian overlay.
@@ -122,6 +97,44 @@ class DragonValeHack():
         """
         self.move_and_click(450, 320, sleep=0.5)
 
+    
+    def click_result(self, order: int) -> None:
+        """
+        Clicks the result at the specified order in the Game Guardian overlay.
+
+        Args:
+            order (int): The order of the result to click.
+        """
+        if order < 1 or order > 8:
+            raise ValueError("Order must be between 1 and 8.")
+        y = 320 + ((order - 1) * 95)
+        self.move_and_click(450, y, sleep=0.5)
+
+
+    def enter_qword_value(self, value: int, interval: float = 0.3) -> None:
+        """
+        Enters Q-Word value into the input field by simulating mouse clicks.
+
+        Args:
+            value (int): The 64-bit integer value to enter.
+            interval (float, optional): Time in seconds to wait between set keystrokes. Default is 0.5.
+        """
+        # Specify the coordinates for each digit on the screen
+        COLS = (1380, 1475, 1570)
+        ROWS = (270, 360, 450, 540, 630, 720)
+        number_mapping = {1: (COLS[0], ROWS[0]), 2: (COLS[1], ROWS[0]), 3: (COLS[2], ROWS[0]),
+                        4: (COLS[0], ROWS[1]), 5: (COLS[1], ROWS[1]), 6: (COLS[2], ROWS[1]),
+                        7: (COLS[0], ROWS[2]), 8: (COLS[1], ROWS[2]), 9: (COLS[2], ROWS[2]),
+                        0: (COLS[0], ROWS[3]), "-": (COLS[0], ROWS[5]),}
+
+        for digit in str(value):
+            try:
+                digit = int(digit)
+            except ValueError:
+                pass
+            x, y = number_mapping[digit]
+            self.move_and_click(x, y, sleep=interval)
+
 
     def search(self) -> None:
         """
@@ -148,14 +161,14 @@ class DragonValeHack():
         pyautogui.typewrite(value, interval=interval)
 
 
-    def arrow_down(self, count: int = 1, interval: float = 0.3) -> None: 
+    def arrow(self, direction: str, count: int = 1, interval: float = 0.15) -> None: 
         """
         Simulates pressing the down arrow key to scroll through the list of results in the Game Guardian overlay.
         """
         for _ in range(count):
-            pyautogui.press('down')
+            pyautogui.press(direction)
             time.sleep(interval)
-
+            
 
     def press_key(self, key: str, sleep: float = 0.3) -> None:
         """
@@ -169,7 +182,7 @@ class DragonValeHack():
         time.sleep(sleep)
 
     
-    def get_copy_value(self) -> int:
+    def get_copy_value(self) -> str:
         """
         Simulates copying the value from the Game Guardian overlay.
 
@@ -178,5 +191,5 @@ class DragonValeHack():
         """
         pyautogui.hotkey('ctrl', 'c')
         time.sleep(0.3)
-        value = int(pyperclip.paste())
+        value = pyperclip.paste()
         return value

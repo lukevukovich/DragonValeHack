@@ -83,9 +83,12 @@ def get_resources() -> dict:
     for resource, skips in RESOURCE_MAPPING.items():
         while True:
             try:
-                value = int(input(f"Enter desired amount of {resource} (0 to skip): ").strip())
-                if value < 0:
-                    print("Please enter a non-negative number.")
+                value = input(f"Enter desired amount of {resource} (enter to skip): ").strip()
+                if value == "":
+                    break
+                value = int(value)
+                if value <= 0:
+                    print("Please enter a positive.")
                     continue
                 if value > 0:
                     resource_mapping[resource] = {"value": value, "skips": skips}
@@ -114,3 +117,21 @@ def get_success_flag() -> bool:
                 print("Invalid choice. Please enter 'y' or 'n'.")
         except ValueError:
             print("Invalid input. Please enter 'y' or 'n'.")
+
+
+def get_num_entries() -> int:
+    """
+    Get the number of entries present from the user.
+
+    Returns:
+        int: The number of entries present.
+    """
+    while True:
+        try:
+            num_entries = int(input("Enter the number of entries present: ").strip())
+            if num_entries < 0:
+                print("Please enter a non-negative number.")
+                continue
+            return num_entries
+        except ValueError:
+            print("Invalid input. Please enter a number.")

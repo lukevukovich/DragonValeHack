@@ -42,8 +42,9 @@ def main():
     hack.select_process()  # Select DragonVale process
     hack.select_search_tab()  # Select search tab
     hack.click_search_button()  # Select search button
-    hack.enter_qword_value(item_value)  # Press each key to search for item value
-    hack.select_qword_search_type()  # Change search type
+    if hack.get_copy_value() != str(item_value): # Check if existing value is already set to item value
+        hack.enter_qword_value(item_value)  # Press each key to search for item value
+        hack.select_qword_search_type()  # Change search type
     hack.search() # Click search button
     hack.click_change_all_values_button()  # Click on the change all values button
     hack.enter_qword_value(0)  # Press each key to change value to 0
