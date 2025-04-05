@@ -21,7 +21,7 @@ Items:
 
 def main():
     """
-    Main function to execute the item Hack script.
+    Main function to execute the Item Hack script.
     """
     item = get_item()  # Get the item to hack from the user
     item_value = ITEM_MAPPING[item] # Get the corresponding Q-Word value for the selected item
@@ -61,10 +61,10 @@ if __name__ == "__main__":
     START = time.time()
 
     try:
-        print("Starting item Hack...\n")
+        print("Starting Item Hack...\n")
         main()
     except Exception:
-        print(f"item Hack error: {traceback.format_exc()}")
+        print(f"Item Hack error: {traceback.format_exc()}")
 
     END = time.time()
-    print(f"item Hack executed in {END - START:.2f} seconds")
+    print(f"Item Hack executed in {END - START:.2f} seconds")
