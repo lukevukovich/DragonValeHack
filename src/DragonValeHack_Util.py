@@ -26,6 +26,7 @@ def get_item() -> str:
     Returns:
         str: The selected item.
     """
+    print("")
     for i, item in enumerate(ITEM_MAPPING.keys()):
         print(f"{i + 1}. {item.title()}")
 
@@ -48,6 +49,7 @@ def get_resource() -> str:
     Returns:
         str: The selected resource.
     """
+    print("")
     for i, resource in enumerate(RESOURCE_MAPPING.keys()):
         print(f"{i + 1}. {resource}")
 
@@ -70,6 +72,9 @@ def get_resource_value(resource: str) -> int:
     while True:
         try:
             value = int(input(f"Enter desired amount of {resource}: ").strip())
+            if value <= 0:
+                print("Please enter a positive value.")
+                continue
             return value
         except ValueError:
             print("Invalid input. Please enter a number.")
@@ -79,6 +84,7 @@ def get_resources() -> dict:
     """
     Get multiple resources and their values from the user.
     """
+    print("")
     resource_mapping = {}
     for resource, skips in RESOURCE_MAPPING.items():
         while True:
@@ -88,7 +94,7 @@ def get_resources() -> dict:
                     break
                 value = int(value)
                 if value <= 0:
-                    print("Please enter a positive.")
+                    print("Please enter a positive value.")
                     continue
                 if value > 0:
                     resource_mapping[resource] = {"value": value, "skips": skips}
@@ -99,24 +105,25 @@ def get_resources() -> dict:
     return resource_mapping
 
 
-def get_success_flag() -> bool:
+def get_add_or_remove() -> str:
     """
-    Get the success flag from the user.
+    Get whether to add or remove resources from the user.
 
     Returns:
-        bool: True if the hack was successful, False otherwise.
+        str: "add" or "remove" based on user input.
     """
+    print("\n1. Add resources\n2. Remove resources")
     while True:
         try:
-            choice = input("Was the hack successful? (y/n): ").strip().lower()
-            if choice in ["y", "yes"]:
-                return True
-            elif choice in ["n", "no"]:
-                return False
+            choice = int(input("Select an option (1-2): ").strip())
+            if choice == 1:
+                return "add"
+            elif choice == 2:
+                return "remove"
             else:
-                print("Invalid choice. Please enter 'y' or 'n'.")
+                print("Invalid choice. Please select 1 or 2.")
         except ValueError:
-            print("Invalid input. Please enter 'y' or 'n'.")
+            print("Invalid input. Please enter a number.")
 
 
 def get_num_entries() -> int:
@@ -126,6 +133,7 @@ def get_num_entries() -> int:
     Returns:
         int: The number of entries present.
     """
+    print("")
     while True:
         try:
             num_entries = int(input("Enter the number of entries present: ").strip())

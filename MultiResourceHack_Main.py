@@ -27,12 +27,13 @@ Resources:
 """
 
 
-def hack_resources(hack: DragonValeHack, resource_mapping: dict) -> None:
+def hack_resources(hack: DragonValeHack, resource_mapping: dict, add_or_remove: str) -> None:
     """
     Iteratively hack each resource in the provided mapping.
 
     Args:
         resource_mapping (dict): A dictionary containing the resources to hack and their corresponding values.
+        add_or_remove (str): A string indicating whether to add or remove the resource value.
     """
     skip_count = 0
     resource_skips = [resource_dict["skips"] for _, resource_dict in resource_mapping.items()]
@@ -48,10 +49,10 @@ def hack_resources(hack: DragonValeHack, resource_mapping: dict) -> None:
                 print(f"Bad entry detected, skipping")
                 hack.select_search_tab()  # Click off item
                 return # If the copied value is not 0, exit the function
-            hack.enter_qword_value(-resource_value)  # Press each key to change value to the desired amount
+            hack.enter_qword_value(-resource_value if add_or_remove == "add" else resource_value)  # Press each key to change value to the desired amount
             hack.click_yes_button()  # Click yes button
             hack.arrow("down") # Reposition selection
-            print(f"Hacked {resource_value} {resource}")
+            print(f"{"Added" if add_or_remove == "add" else "Removed"} {resource_value} {resource}")
 
         if skip_count >= resource_skips[-1]:  # If we've processed all resources in the mapping, exit the loop
             break
@@ -65,6 +66,7 @@ def main():
     Main function to execute the Multi Resource Hack script.
     """
     resource_mapping = get_resources()  # Get the value of each desired resource from user
+    add_or_remove = get_add_or_remove()  # Get whether to add or remove the item
     item = get_item()  # Get the item to hack from the user
     item_value = ITEM_MAPPING[item]  # Get the corresponding Q-Word value for the selected item
     print(f"Hacking resources from item {item.title()}")
@@ -84,9 +86,9 @@ def main():
     hack.click_change_all_values_button()  # Click on the change all values button
     if list(resource_mapping.keys()) == ["DragonCash"]: # If only DragonCash is selected, set the value directly
         value = resource_mapping["DragonCash"]["value"] # Get the value of DragonCash to hack
-        hack.enter_qword_value(-value) # For DragonCash, directly set the value to the desired amount
+        hack.enter_qword_value(-value if add_or_remove == "add" else value) # For DragonCash, directly set the value to the desired amount
         hack.click_yes_button()  # Click yes button
-        print(f"Hacked {value} DragonCash")
+        print(f"{"Added" if add_or_remove == "add" else "Removed"} {value} DragonCash")
     else:
         hack.enter_qword_value(0)  # Press each key to change value to 0
         hack.click_yes_button()  # Click yes button
@@ -107,20 +109,22 @@ def main():
             hack.click_result(i + 1) # Click on the result
             hack.goto()  # Go to the resource value
             hack.arrow("down") # Move down to correct position
-            hack_resources(hack, resource_mapping)  # Hack each resource in the mapping
+            hack_resources(hack, resource_mapping, add_or_remove)  # Hack each resource in the mapping
             hack.select_search_tab()  # Select search tab
 
     hack.close_game_guardian()  # Close Game Guardian overlay
-    hack.move_and_click(1350, 950, sleep=1.5) # Buy another Galaxy Flag with the hacked resources
+    hack.move_and_click(1350, 950, sleep=1.2) # Buy another Galaxy Flag with the hacked resources
+    if add_or_remove == "remove" and list(resource_mapping.keys()) != ["DragonCash"]:
+        hack.move_and_click(730, 830, sleep=1.2) # If removing resource, click buy button to buy the item
     hack.move_and_click(1550, 950)  # Place the Galaxy Flag in the free slot
-    print("hack automation complete\n")
+    print("\nHack automation complete\n")
 
 
 if __name__ == "__main__":
     START = time.time()
 
     try:
-        print("Starting Multi Resource Hack...\n")
+        print("Starting Multi Resource Hack...")
         main()
     except Exception:
         print(f"Multi Resource Hack error: {traceback.format_exc()}")

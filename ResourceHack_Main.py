@@ -34,6 +34,7 @@ def main():
     resource = get_resource() # Get the resource to hack from the user
     resource_skips = RESOURCE_MAPPING[resource] # Get the number of skips for the resource
     resource_value = get_resource_value(resource) # Get the value to hack for the selected resource
+    add_or_remove = get_add_or_remove() # Get whether to add or remove the resource value
     item = get_item()  # Get the item to hack from the user
     item_value = ITEM_MAPPING[item]  # Get the corresponding Q-Word value for the selected item
     print(f"Hacking {resource_value} {resource} from item {item.title()}")
@@ -52,9 +53,9 @@ def main():
     hack.search()  # Click search button
     hack.click_change_all_values_button()  # Click on the change all values button
     if resource == "DragonCash":
-        hack.enter_qword_value(-resource_value)  # For DragonCash, directly set the value to the desired amount
+        hack.enter_qword_value(-resource_value if add_or_remove == "add" else resource_value)  # For DragonCash, directly set the value to the desired amount
         hack.click_yes_button()  # Click yes button
-        print(f"Hacked {resource_value} DragonCash")
+        print(f"{"Added" if add_or_remove == "add" else "Removed"} {resource_value} DragonCash")
     else:
         hack.enter_qword_value(0)  # Press each key to change value to 0
         hack.click_yes_button()  # Click yes button
@@ -81,22 +82,24 @@ def main():
                 print(f"Bad entry detected, skipping")
                 [hack.select_search_tab() for _ in range(2)]
                 continue
-            hack.enter_qword_value(-resource_value)  # Press each key to change value to the desired amount
+            hack.enter_qword_value(-resource_value if add_or_remove == "add" else resource_value)  # Press each key to change value to the desired amount
             hack.click_yes_button()  # Click yes button
             hack.select_search_tab()  # Select search tab
-            print(f"Hacked {resource_value} {resource}")
+            print(f"{"Added" if add_or_remove == "add" else "Removed"} {resource_value} {resource}")
 
     hack.close_game_guardian()  # Close Game Guardian overlay
-    hack.move_and_click(1350, 950, sleep=1.5) # Buy another Galaxy Flag with the hacked resources
+    hack.move_and_click(1350, 950, sleep=1.2) # Buy another Galaxy Flag with the hacked resources
+    if add_or_remove == "remove" and resource != "DragonCash":
+        hack.move_and_click(730, 830, sleep=1.2) # If removing resource, click buy button to buy the item
     hack.move_and_click(1550, 950)  # Place the Galaxy Flag in the free slot
-    print("hack automation complete\n")
+    print("\nHack automation complete\n")
 
 
 if __name__ == "__main__":
     START = time.time()
 
     try:
-        print("Starting Resource Hack...\n")
+        print("Starting Resource Hack...")
         main()
     except Exception:
         print(f"Resource Hack error: {traceback.format_exc()}")

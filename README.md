@@ -3,6 +3,24 @@ Python scripts built to automate DragonVale exploits using GameGuardian and Nox 
 
 All processes support 1080p resolution (fullscreen windowed).
 
+## Python Requirements
+- pyautogui
+- pyperclip
+
+---
+
+## Supported Resources
+- DragonCash
+- EXP
+- Food
+- Gems
+- Event Currency
+- Wishes (if user has wishing well)
+- Eternal essence (if applicable)
+- Abundant essence (if applicable)
+- Vital essence (if applicable)
+- Ethereum
+
 ---
 
 ## Item Hack (ItemHack_Main.py)
@@ -22,17 +40,3 @@ Process will intercept an item's "Buy Another" value and alter the resource and 
 ## Multi Resource Hack (MultiResourceHack_Main.py)
 Automates the process of hacking multiple resource with any value through one sale.
 Process will intercept and item's "Buy Another" value and alter the resources and values they return.
-
----
-
-## Supported Resources
-- DragonCash
-- EXP
-- Food
-- Gems
-- Event Currency
-- Wishes (if user has wishing well)
-- Eternal essence (if applicable)
-- Abundant essence (if applicable)
-- Vital essence (if applicable)
-- Ethereum
