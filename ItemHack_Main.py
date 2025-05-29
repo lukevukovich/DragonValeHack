@@ -61,7 +61,7 @@ if __name__ == "__main__":
     START = time.time()
 
     try:
-        print("Starting Item Hack...\n")
+        print("Starting Item Hack...")
         main()
     except Exception:
         print(f"Item Hack error: {traceback.format_exc()}")

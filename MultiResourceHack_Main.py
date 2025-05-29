@@ -69,7 +69,7 @@ def main():
     add_or_remove = get_add_or_remove()  # Get whether to add or remove the item
     item = get_item()  # Get the item to hack from the user
     item_value = ITEM_MAPPING[item]  # Get the corresponding Q-Word value for the selected item
-    print(f"Hacking resources from item {item.title()}")
+    print(f"Hacking resources from item '{item.title()}'")
 
     hack = DragonValeHack()
     print("\nInitialized DragonValeHack instance")
