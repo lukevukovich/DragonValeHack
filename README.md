@@ -38,5 +38,5 @@ Automates the process of hacking a resource with any value.
 Process will intercept an item's "Buy Another" value and alter the resource and the value it returns.
 
 ## Multi Resource Hack (MultiResourceHack_Main.py)
-Automates the process of hacking multiple resource with any value through one sale.
+Automates the process of hacking multiple resources with any value through one sale.
 Process will intercept and item's "Buy Another" value and alter the resources and values they return.
