@@ -3,13 +3,15 @@ Python scripts built to automate DragonVale resource exploits using GameGuardian
 
 All processes support 1080p resolution (fullscreen windowed).
 
+Ensure Game Guardian is running before running scripts.
+
 ---
 
 ## Requirements
 
 ### Software Requirements
 - [Python](https://www.python.org/downloads/)
-- [Nox Emulator](https://www.youtube.com/watch?v=WkpWSa5AsLs)
+- [Nox Emulator](https://www.bignox.com/)
 - [Game Guardian](https://gameguardian.net/forum/files/file/2-gameguardian/) ([Installation](https://www.youtube.com/watch?v=WkpWSa5AsLs))
 
 ### Python Requirements
