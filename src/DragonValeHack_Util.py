@@ -112,7 +112,7 @@ def get_add_or_remove() -> str:
     Returns:
         str: "add" or "remove" based on user input.
     """
-    print("\n1. Add resources\n2. Remove resources")
+    print("\n1. Add\n2. Remove")
     while True:
         try:
             choice = int(input("Select an option (1-2): ").strip())

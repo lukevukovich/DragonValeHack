@@ -1,9 +1,18 @@
 # DragonValeHack
-Python scripts built to automate DragonVale exploits using GameGuardian and Nox emulator.
+Python scripts built to automate DragonVale resource exploits using GameGuardian and Nox emulator.
 
 All processes support 1080p resolution (fullscreen windowed).
 
-## Python Requirements
+---
+
+## Requirements
+
+### Software Requirements
+- [Python](https://www.python.org/downloads/)
+- [Nox Emulator](https://www.youtube.com/watch?v=WkpWSa5AsLs)
+- [Game Guardian](https://gameguardian.net/forum/files/file/2-gameguardian/) ([Installation](https://www.youtube.com/watch?v=WkpWSa5AsLs))
+
+### Python Requirements
 - pyautogui
 - pyperclip
 
@@ -23,24 +32,24 @@ All processes support 1080p resolution (fullscreen windowed).
 
 ---
 
-## Item Hack (ItemHack_Main.py)
+## Toolkit
+
+### Item Hack (ItemHack_Main.py)
 Automates the process of hacking in an item for free from the market.
 Process will intercept the item's sell value and change it to 0.
 
-### Items
+#### Items
 - Famed Flat Rock (under level 11)
 - Galaxy Flag (level 11 and above)
 
----
-
-## Resource Hack (ResourceHack_Main.py)
+### Resource Hack (ResourceHack_Main.py)
 Automates the process of hacking a resource with any value.
 Process will intercept an item's "Buy Another" value and alter the resource and the value it returns.
 Can add or remove resources.
 
 - User must enter number of entries found during item search in order to guarantee hack success.
 
-## Multi Resource Hack (MultiResourceHack_Main.py)
+### Multi Resource Hack (MultiResourceHack_Main.py)
 Automates the process of hacking multiple resources with any value through one sale.
 Process will intercept and item's "Buy Another" value and alter the resources and values they return.
 Can add or remove resources.
