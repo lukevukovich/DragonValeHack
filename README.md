@@ -36,7 +36,13 @@ Process will intercept the item's sell value and change it to 0.
 ## Resource Hack (ResourceHack_Main.py)
 Automates the process of hacking a resource with any value.
 Process will intercept an item's "Buy Another" value and alter the resource and the value it returns.
+Can add or remove resources.
+
+- User must enter number of entries found during item search in order to guarantee hack success.
 
 ## Multi Resource Hack (MultiResourceHack_Main.py)
 Automates the process of hacking multiple resources with any value through one sale.
 Process will intercept and item's "Buy Another" value and alter the resources and values they return.
+Can add or remove resources.
+
+- User must enter number of entries found during item search in order to guarantee hack success.
