@@ -1,12 +1,12 @@
 # DragonValeHack
-Python scripts built to automate DragonVale resource exploits using GameGuardian and Nox emulator.
+Python scripts built to automate DragonVale resource exploits using Nox emulator and GameGuardian.
 
 ## How It Works
 DragonVale has no server-side checks for resources, so it is possible to manipulate the game client to give you any amount of resources you want.
 
-Game Guardian enables dynamic memory scanning and editing within the emulator. This allows resource values like DragonCash or Gems to be intercepted and changed.
+GameGuardian enables dynamic memory scanning and editing within the emulator. This allows resource values like DragonCash or Gems to be intercepted and changed.
 
-pyautogui simulates mouse movements, clicks, and keyboard inputs on the Nox emulator and Game Guardian window, allowing full automation of the hacking process.
+pyautogui simulates mouse movements, clicks, and keyboard inputs on the Nox emulator and GameGuardian window, allowing full automation of the hacking process.
 
 ---
 
@@ -15,7 +15,7 @@ pyautogui simulates mouse movements, clicks, and keyboard inputs on the Nox emul
 ### Software Requirements
 - [Python](https://www.python.org/downloads/)
 - [Nox Emulator](https://www.bignox.com/)
-- [Game Guardian](https://gameguardian.net/forum/files/file/2-gameguardian/) ([Installation](https://www.youtube.com/watch?v=WkpWSa5AsLs))
+- [GameGuardian](https://gameguardian.net/forum/files/file/2-gameguardian/) ([Installation](https://www.youtube.com/watch?v=WkpWSa5AsLs))
 
 ### Python Requirements
 - pyautogui
@@ -52,7 +52,7 @@ This item will later be used to hack resources.
 - Galaxy Flag (level 11 and above)
 
 #### Usage
-- Ensure Game Guardian is running and DragonVale is open
+- Ensure GameGuardian is running and DragonVale is open
 - Ensure screen is focused on a free 1x1 slot to place item
 - Run script
 - Select item to hack for free (Famed Flat Rock or Galaxy Flag)
@@ -63,7 +63,7 @@ Process will intercept item's "Buy Another" value and alter the resource and the
 Can add or remove resources.
 
 #### Usage
-- Ensure Game Guardian is running and DragonVale is open
+- Ensure GameGuardian is running and DragonVale is open
 - Ensure item (Famed Flat Rock or Galaxy Flag) is selected and "Buy Another" option is present
 - Run script
 - Select resource to hack
@@ -77,7 +77,7 @@ Process will intercept item's "Buy Another" value and alter the resources and va
 Can add or remove resources.
 
 #### Usage
-- Ensure Game Guardian is running and DragonVale is open
+- Ensure GameGuardian is running and DragonVale is open
 - Ensure item (Famed Flat Rock or Galaxy Flag) is selected and "Buy Another" option is present
 - Run script
 - Enter amount to hack for each resource
