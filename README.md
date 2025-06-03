@@ -14,7 +14,7 @@ pyautogui simulates mouse movements, clicks, and keyboard inputs on the Nox emul
 
 ### Software Requirements
 - [Python](https://www.python.org/downloads/)
-- [Nox Emulator](https://www.bignox.com/)
+- [Nox Emulator](https://www.bignox.com/) with DragonVale installed
 - [GameGuardian](https://gameguardian.net/forum/files/file/2-gameguardian/) ([Installation](https://www.youtube.com/watch?v=WkpWSa5AsLs))
 
 ### Python Requirements
