@@ -1,11 +1,12 @@
 # DragonValeHack
 Python scripts built to automate DragonVale resource exploits using GameGuardian and Nox emulator.
 
-_How does this work?_ Well DragonVale has no server-side checks for resources, so it is possible to manipulate the game client to give you any amount of resources you want.
+## How It Works
+DragonVale has no server-side checks for resources, so it is possible to manipulate the game client to give you any amount of resources you want.
 
-All processes support 1080p resolution (fullscreen windowed).
+Game Guardian enables dynamic memory scanning and editing within the emulator. This allows resource values like DragonCash or Gems to be intercepted and changed.
 
-Ensure Game Guardian is running before running any scripts.
+pyautogui simulates mouse movements, clicks, and keyboard inputs on the Nox emulator and Game Guardian window, allowing full automation of the hacking process.
 
 ---
 
@@ -51,6 +52,7 @@ This item will later be used to hack resources.
 - Galaxy Flag (level 11 and above)
 
 #### Usage
+- Ensure Game Guardian is running and DragonVale is open
 - Ensure screen is focused on a free 1x1 slot to place item
 - Run script
 - Select item to hack for free (Famed Flat Rock or Galaxy Flag)
@@ -61,6 +63,7 @@ Process will intercept item's "Buy Another" value and alter the resource and the
 Can add or remove resources.
 
 #### Usage
+- Ensure Game Guardian is running and DragonVale is open
 - Ensure item (Famed Flat Rock or Galaxy Flag) is selected and "Buy Another" option is present
 - Run script
 - Select resource to hack
@@ -74,6 +77,7 @@ Process will intercept item's "Buy Another" value and alter the resources and va
 Can add or remove resources.
 
 #### Usage
+- Ensure Game Guardian is running and DragonVale is open
 - Ensure item (Famed Flat Rock or Galaxy Flag) is selected and "Buy Another" option is present
 - Run script
 - Enter amount to hack for each resource
