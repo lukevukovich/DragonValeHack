@@ -43,8 +43,8 @@ def hack_resources(hack: DragonValeHack, resource_mapping: dict, add_or_remove: 
             resource = reversed_resource_mapping[skip_count]  # Get the resource name from the skip count
             resource_dict = resource_mapping[resource]  # Get the dictionary for the current resource
             resource_value = resource_dict["value"]  # Get the value of the resource to hack
-            hack.press_key("enter")  # Press enter to select the resource value
-            hack.move_and_click(700, 740, sleep=0.5)  # Select Q-Word type
+            hack.press_key("enter", sleep=0.7)  # Press enter to select the resource value
+            hack.move_and_click(700, 740, sleep=0.6)  # Select Q-Word type
             if resource != "DragonCash" and hack.get_copy_value() != "0":
                 print(f"Bad entry detected, skipping")
                 hack.select_search_tab()  # Click off item
@@ -93,16 +93,17 @@ def main():
         hack.enter_qword_value(0)  # Press each key to change value to 0
         hack.click_yes_button()  # Click yes button
 
-        entries = get_num_entries()  # Get the number of entries
         hack.select_search_tab()  # Select search tab
+        entries = hack.detect_num_entries()  # Detect the number of entries
         if entries == 0:
-            print("No entries found, quitting hack...\n")
+            print("\nNo entries found, quitting hack...\n")
             hack.close_game_guardian()  # Close Game Guardian overlay
             return
-        elif entries > 8:
-            print(f"Too many entries ({entries}), quitting hack...\n")
+        elif entries == 8:
+            print(f"\nToo many entries ({entries}), quitting hack...\n")
             hack.close_game_guardian() # Close Game Guardian overlay
             return
+        print(f"\nFound {entries} entries, proceeding with hack...")
 
         for i in range(entries):
             print(f"\nHacking entry {i + 1} of {entries}...")
@@ -117,7 +118,7 @@ def main():
     if add_or_remove == "remove" and list(resource_mapping.keys()) != ["DragonCash"]:
         hack.move_and_click(730, 830, sleep=1.2) # If removing resource, click buy button to buy the item
     hack.move_and_click(1550, 950)  # Place the Galaxy Flag in the free slot
-    print("\nHack automation complete\n")
+    print("\nHack automation complete")
 
 
 if __name__ == "__main__":

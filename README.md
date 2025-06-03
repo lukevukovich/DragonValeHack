@@ -1,9 +1,11 @@
 # DragonValeHack
 Python scripts built to automate DragonVale resource exploits using GameGuardian and Nox emulator.
 
+_How does this work?_ Well DragonVale has no server-side checks for resources, so it is possible to manipulate the game client to give you any amount of resources you want.
+
 All processes support 1080p resolution (fullscreen windowed).
 
-Ensure Game Guardian is running before running scripts.
+Ensure Game Guardian is running before running any scripts.
 
 ---
 
@@ -17,6 +19,8 @@ Ensure Game Guardian is running before running scripts.
 ### Python Requirements
 - pyautogui
 - pyperclip
+
+Use `pip install pyautogui pyperclip` to install the required Python packages.
 
 ---
 
@@ -38,22 +42,40 @@ Ensure Game Guardian is running before running scripts.
 
 ### Item Hack (ItemHack_Main.py)
 Automates the process of hacking in an item for free from the market.
-Process will intercept the item's sell value and change it to 0.
+Process will intercept item's sell value and change it to 0.
 
-#### Items
+This item will later be used to hack resources.
+
+#### Supported Items
 - Famed Flat Rock (under level 11)
 - Galaxy Flag (level 11 and above)
 
+#### Usage
+- Ensure screen is focused on a free 1x1 slot to place item
+- Run script
+- Select item to hack for free (Famed Flat Rock or Galaxy Flag)
+
 ### Resource Hack (ResourceHack_Main.py)
 Automates the process of hacking a resource with any value.
-Process will intercept an item's "Buy Another" value and alter the resource and the value it returns.
+Process will intercept item's "Buy Another" value and alter the resource and the value it returns.
 Can add or remove resources.
 
-- User must enter number of entries found during item search in order to guarantee hack success.
+#### Usage
+- Ensure item (Famed Flat Rock or Galaxy Flag) is selected and "Buy Another" option is present
+- Run script
+- Select resource to hack
+- Enter amount to hack
+- Select Add or Remove
+- Select item using to hack (Famed Flat Rock or Galaxy Flag)
 
-### Multi Resource Hack (MultiResourceHack_Main.py)
+### Multi-Resource Hack (MultiResourceHack_Main.py)
 Automates the process of hacking multiple resources with any value through one sale.
-Process will intercept and item's "Buy Another" value and alter the resources and values they return.
+Process will intercept item's "Buy Another" value and alter the resources and values they return.
 Can add or remove resources.
 
-- User must enter number of entries found during item search in order to guarantee hack success.
+#### Usage
+- Ensure item (Famed Flat Rock or Galaxy Flag) is selected and "Buy Another" option is present
+- Run script
+- Enter amount to hack for each resource
+- Select Add or Remove
+- Select item using to hack (Famed Flat Rock or Galaxy Flag)

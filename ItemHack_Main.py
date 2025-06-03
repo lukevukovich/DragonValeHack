@@ -54,7 +54,7 @@ def main():
     hack.click_first_result()  # Click on the first result (item)
     hack.move_and_click(1150, 900, sleep=1.5)  # Buy the item for free
     hack.move_and_click(1550, 950)  # Place the item in the free slot
-    print("Hack automation complete\n")
+    print("\nHack automation complete")
 
 
 if __name__ == "__main__":

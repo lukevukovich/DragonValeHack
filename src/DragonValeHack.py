@@ -110,6 +110,25 @@ class DragonValeHack():
         y = 320 + ((order - 1) * 95)
         self.move_and_click(450, y, sleep=0.5)
 
+    
+    def detect_num_entries(self) -> int:
+        """
+        Detects the number of entries present in the Game Guardian overlay.
+
+        Returns:
+            int: The number of entries detected, minimum is 0 and maximum is 8.
+        """
+        i = 0
+        while True:
+            pixel_color = pyautogui.pixel(65, 320 + (i * 95))
+            if pixel_color != (128, 203, 196):
+                break
+
+            i += 1
+            if i == 8:
+                break
+        return i
+
 
     def enter_qword_value(self, value: int, interval: float = 0.3) -> None:
         """
