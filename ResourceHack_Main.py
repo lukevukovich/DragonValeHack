@@ -51,12 +51,14 @@ def main():
         hack.enter_qword_value(item_value)  # Press each key to search for item value
         hack.select_qword_search_type()  # Change search type
     hack.search()  # Click search button
+    hack.wait(1)  # Wait for a second
     hack.click_change_all_values_button()  # Click on the change all values button
     if resource == "DragonCash":
         hack.enter_qword_value(-resource_value if add_or_remove == "add" else resource_value)  # For DragonCash, directly set the value to the desired amount
         hack.click_yes_button()  # Click yes button
         print(f"{"Added" if add_or_remove == "add" else "Removed"} {resource_value} DragonCash")
     else:
+        hack.wait(0.5)  # Wait for half a second
         hack.enter_qword_value(0)  # Press each key to change value to 0
         hack.click_yes_button()  # Click yes button
 
@@ -75,6 +77,7 @@ def main():
         for i in range(entries):
             print(f"\nHacking entry {i + 1} of {entries}...")
             hack.click_result(i + 1) # Click on the result
+            hack.wait(0.75)  # Wait
             hack.goto()  # Go to the resource value
             hack.arrow("down", resource_skips + 1)  # Skip to the resource value
             hack.press_key("enter")  # Press enter to select the resource value

@@ -212,3 +212,13 @@ class DragonValeHack():
         time.sleep(0.3)
         value = pyperclip.paste()
         return value
+    
+
+    def wait(self, seconds: float) -> None:
+        """
+        Waits for a specified number of seconds.
+
+        Args:
+            seconds (float): The number of seconds to wait.
+        """
+        time.sleep(seconds)

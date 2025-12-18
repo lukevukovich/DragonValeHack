@@ -23,6 +23,12 @@ pyautogui simulates mouse movements, clicks, and keyboard inputs on the Nox emul
 
 Use `pip install pyautogui pyperclip` to install the required Python packages.
 
+### Game Guardian Setup
+Ensure DragonVale is running before starting GameGuardian as it causes DragonVale to crash otherwise.
+
+Once GameGuardian is installed in Nox, start the app and choose DragonVale from the process list.
+Then navigate to configurations, and choose `Select memory ranges`. Ensure `O: Other` is checked, can leave everything else default.
+
 ---
 
 ## Supported Resources
