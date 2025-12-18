@@ -10,7 +10,7 @@ pyautogui simulates mouse movements, clicks, and keyboard inputs on the Nox emul
 
 ---
 
-## Requirements
+## Requirements & Setup
 
 ### Software Requirements
 - [Python](https://www.python.org/downloads/)
@@ -18,10 +18,23 @@ pyautogui simulates mouse movements, clicks, and keyboard inputs on the Nox emul
 - [GameGuardian](https://gameguardian.net/forum/files/file/2-gameguardian/) ([Installation](https://www.youtube.com/watch?v=WkpWSa5AsLs))
 
 ### Python Requirements
+- Python 3.9 or higher
 - pyautogui
 - pyperclip
 
 Use `pip install pyautogui pyperclip` to install the required Python packages.
+
+### Nox Setup
+- **Performance Settings:**
+    - High (4 cores CPU, 4096 MB Memory)
+    - Tablet mode
+    - 1920x1080 resolution
+
+- **Gaming Settings:**
+    - Frame settings: >= 60 FPS
+
+- **General Settings:**
+    - Root: Enabled
 
 ### Game Guardian Setup
 Ensure DragonVale is running before starting GameGuardian as it causes DragonVale to crash otherwise.
@@ -36,7 +49,7 @@ Then navigate to configurations, and choose `Select memory ranges`. Ensure `O: O
 - EXP
 - Food
 - Gems
-- Event Currency
+- Event Currency (if applicable)
 - Wishes (if user has wishing well)
 - Eternal essence (if applicable)
 - Abundant essence (if applicable)
