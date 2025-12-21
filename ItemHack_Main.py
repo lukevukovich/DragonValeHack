@@ -32,7 +32,7 @@ def main():
 
     print(f"Starting hack automation...")
     hack.move_and_click(1750, 950, sleep=2)  # Open market
-    hack.move_and_click(450, 800, sleep=3)  # Select decorations
+    hack.move_and_click(1450, 400, sleep=3)  # Select decorations
     hack.move_and_click(1200, 80, sleep=1)  # Select search bar
     hack.move_and_click(900, 500, sleep=0.1)  # Click in search bar to start typing
     hack.type(item, interval=0.2)  # Type item in the search bar
@@ -42,10 +42,12 @@ def main():
     hack.select_process()  # Select DragonVale process
     hack.select_search_tab()  # Select search tab
     hack.click_search_button()  # Select search button
+    hack.wait(0.5)  # Wait
     if hack.get_copy_value() != str(item_value): # Check if existing value is already set to item value
         hack.enter_qword_value(item_value)  # Press each key to search for item value
         hack.select_qword_search_type()  # Change search type
     hack.search() # Click search button
+    hack.wait(1)  # Wait
     hack.click_change_all_values_button()  # Click on the change all values button
     hack.enter_qword_value(0)  # Press each key to change value to 0
     hack.click_yes_button()  # Click yes button

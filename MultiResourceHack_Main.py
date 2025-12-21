@@ -69,7 +69,7 @@ def main():
     add_or_remove = get_add_or_remove() # Get whether to add or remove the item
     item = get_item() # Get the item to hack from the user
     item_value = ITEM_MAPPING[item] # Get the corresponding Q-Word value for the selected item
-    print(f"Hacking resources from {item.title()}")
+    print(f"\nHacking resources from {item.title()}")
 
     hack = DragonValeHack()
     print("\nInitialized DragonValeHack instance")
@@ -84,7 +84,7 @@ def main():
         hack.enter_qword_value(item_value) # Press each key to search for item value
         hack.select_qword_search_type() # Change search type
     hack.search() # Click search button
-    hack.wait(1.25) # Wait
+    hack.wait(1) # Wait
     hack.click_change_all_values_button() # Click on the change all values button
     if list(resource_mapping.keys()) == ["DragonCash"]: # If only DragonCash is selected, set the value directly
         value = resource_mapping["DragonCash"]["value"] # Get the value of DragonCash to hack
@@ -111,7 +111,7 @@ def main():
         for i in range(entries):
             print(f"\nHacking entry {i + 1} of {entries}...")
             hack.click_result(i + 1) # Click on the result
-            hack.wait(0.75) # Wait
+            hack.wait(0.8) # Wait
             hack.goto() # Go to the resource value
             hack.arrow("down") # Move down to correct position
             hack_resources(hack, resource_mapping, add_or_remove) # Hack each resource in the mapping
