@@ -16,12 +16,19 @@ jobs:
         run: |
           set -euo pipefail
           files=$(git ls-files '*.py')
-          if [ -z "$files" ]; then
-            echo "No Python files found to package" >&2
+          include_readme=""
+          if [ -f README.md ]; then
+            include_readme="README.md"
+          fi
+          if [ -z "$files" ] && [ -z "$include_readme" ]; then
+            echo "No files found to package" >&2
             exit 1
           fi
           echo "$files" | tr ' ' '\n'
-          zip -r DragonValeHack.zip $files
+          if [ -n "$include_readme" ]; then
+            echo "$include_readme"
+          fi
+          zip -r DragonValeHack.zip $files $include_readme
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
