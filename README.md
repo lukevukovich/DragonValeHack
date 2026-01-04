@@ -126,6 +126,10 @@ The following resources can be hacked using this toolkit (availability may depen
 - Vital essence (if applicable)
 - Ethereum
 
+<p align="center">
+  <img src="assets/proof.png" alt="DragonValeHack proof image" />
+</p>
+
 ---
 
 ## Disclaimer
@@ -134,9 +138,3 @@ The author does not condone cheating, hacking, or violating the terms of service
 Use of these scripts may violate the terms of service of DragonVale and related software.
 The author is not responsible for any misuse or consequences resulting from the use of this code.
 By using this project, you agree to use it at your own risk and to comply with all applicable laws and terms of service.
-
----
-
-<p align="center">
-  <img src="assets/proof.png" alt="DragonValeHack proof image" />
-</p>
