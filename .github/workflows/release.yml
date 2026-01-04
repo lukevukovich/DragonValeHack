@@ -3,11 +3,6 @@ name: Release DragonValeHack
 on:
   workflow_dispatch:
     inputs:
-      include_readme:
-        description: Include README.md in the ZIP
-        required: false
-        default: false
-        type: boolean
       replace_assets:
         description: Replace ZIP on existing release (same tag)
         required: false
@@ -29,13 +24,13 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Validate manifest.json
+      - name: Validate manifest version
         shell: bash
         run: |
           set -euo pipefail
           test -f manifest.json || { echo "manifest.json is missing"; exit 1; }
-          jq -e '.name and .version' manifest.json > /dev/null \
-            || { echo "manifest.json must contain name and version"; exit 1; }
+          jq -e '.version' manifest.json > /dev/null \
+            || { echo "manifest.json must contain version"; exit 1; }
 
       - name: Read manifest version
         id: meta
