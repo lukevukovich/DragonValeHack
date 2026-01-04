@@ -1,11 +1,13 @@
 name: Release DragonValeHack
 
 on:
-  create:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   guard:
-    if: ${{ github.event.ref_type == 'tag' && startsWith(github.ref, 'v') }}
+    if: ${{ startsWith(github.ref_name, 'v') }}
     runs-on: ubuntu-latest
     outputs:
       should_release: ${{ steps.check.outputs.should_release }}
@@ -19,7 +21,7 @@ jobs:
       - name: Check tagged commit is on main
         id: check
         env:
-          TAG_NAME: ${{ github.ref }}
+          TAG_NAME: ${{ github.ref_name }}
         shell: bash
         run: |
           set -euo pipefail
@@ -65,7 +67,7 @@ PY
 
       - name: Validate tag matches manifest version
         env:
-          TAG_NAME: ${{ github.ref }}
+          TAG_NAME: ${{ github.ref_name }}
         shell: bash
         run: |
           set -euo pipefail
@@ -89,7 +91,7 @@ PY
       - name: Create GitHub Release and upload asset
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ github.ref_name }}
           name: DragonValeHack v${{ env.VERSION }}
           files: |
             DragonValeHack.zip
