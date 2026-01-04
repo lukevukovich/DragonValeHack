@@ -1,30 +1,43 @@
 name: Release DragonValeHack
 
 on:
-  push:
-    tags:
-      - 'v*'
+  create:
 
 jobs:
-  release:
+  guard:
+    if: ${{ github.event.ref_type == 'tag' && startsWith(github.ref, 'v') }}
     runs-on: ubuntu-latest
+    outputs:
+      should_release: ${{ steps.check.outputs.should_release }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Verify tagged commit is on main
+      - name: Check tagged commit is on main
+        id: check
         shell: bash
         run: |
           set -euo pipefail
           git fetch origin main
           if git merge-base --is-ancestor "${GITHUB_SHA}" "origin/main"; then
             echo "Tagged commit is on main"
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
           else
             echo "Tagged commit is NOT on main" >&2
-            exit 1
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
           fi
+
+  release:
+    needs: guard
+    if: ${{ needs.guard.outputs.should_release == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Read version from manifest.json
         id: manifest
@@ -45,10 +58,12 @@ PY
           echo "Version from manifest: $ver"
 
       - name: Validate tag matches manifest version
+        env:
+          TAG_NAME: ${{ github.ref }}
         shell: bash
         run: |
           set -euo pipefail
-          tag_name="${GITHUB_REF_NAME}"
+          tag_name="${TAG_NAME}"
           if [ "v${VERSION}" != "$tag_name" ]; then
             echo "Tag ($tag_name) does not match manifest version v${VERSION}" >&2
             exit 1
@@ -68,7 +83,7 @@ PY
       - name: Create GitHub Release and upload asset
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref }}
           name: DragonValeHack v${{ env.VERSION }}
           files: |
             DragonValeHack.zip
