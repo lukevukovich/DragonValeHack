@@ -2,9 +2,19 @@ name: Release DragonValeHack
 
 on:
   workflow_dispatch:
+    inputs:
+      include_readme:
+        description: Include README.md in the ZIP
+        required: false
+        default: false
+        type: boolean
+      replace_assets:
+        description: Replace ZIP on existing release (same tag)
+        required: false
+        default: true
+        type: boolean
   push:
-    tags:
-      - 'v*'
+    tags: ["v*"]
 
 permissions:
   contents: write
@@ -13,83 +23,86 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          fetch-tags: true
 
-      - name: Check tagged commit is on main
-        id: check
-        env:
-          TAG_NAME: ${{ github.ref_name }}
+      - name: Install build deps
+        run: sudo apt-get update && sudo apt-get install -y jq rsync zip
+
+      - name: Validate manifest.json
         shell: bash
         run: |
           set -euo pipefail
-          git fetch origin main
-          git fetch --tags
-          tag_commit=$(git rev-parse "refs/tags/${TAG_NAME}^{commit}")
-          if git merge-base --is-ancestor "${tag_commit}" "origin/main"; then
-            echo "on_main=true" >> "$GITHUB_OUTPUT"
-            echo "Tag $TAG_NAME points to main (OK)"
-          else
-            echo "on_main=false" >> "$GITHUB_OUTPUT"
-            echo "Tag $TAG_NAME does not point to main; skipping release"
-          fi
+          test -f manifest.json || { echo "manifest.json is missing"; exit 1; }
+          jq -e '.name and .version' manifest.json > /dev/null \
+            || { echo "manifest.json must contain name and version"; exit 1; }
 
-      - name: Read version from manifest.json
-        id: manifest
-        if: ${{ steps.check.outputs.on_main == 'true' }}
+      - name: Compute package metadata
+        id: meta
         shell: bash
         run: |
           set -euo pipefail
-          ver=$(python - <<'PY'
-import json, sys
-with open('manifest.json', 'r', encoding='utf-8') as f:
-    data = json.load(f)
-ver = data.get('version', '').strip()
-if not ver:
-    raise SystemExit('version missing in manifest.json')
-print(ver)
-PY
-          )
-          echo "VERSION=$ver" >> "$GITHUB_ENV"
-          echo "Version from manifest: $ver"
+          NAME=$(jq -r '.name' manifest.json | sed 's/[^A-Za-z0-9._-]/-/g' | tr '[:upper:]' '[:lower:]')
+          VERSION=$(jq -r '.version' manifest.json)
+          ZIP_NAME="${NAME}-${VERSION}.zip"
+          DIR_NAME="${NAME}-${VERSION}"
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "zip=$ZIP_NAME" >> "$GITHUB_OUTPUT"
+          echo "dir=$DIR_NAME" >> "$GITHUB_OUTPUT"
 
-      - name: Validate tag matches manifest version
-        if: ${{ steps.check.outputs.on_main == 'true' }}
+      - name: Enforce tag matches manifest version
         shell: bash
         run: |
           set -euo pipefail
-          tag_name="${GITHUB_REF_NAME}"
-          if [ "v${VERSION}" != "$tag_name" ]; then
-            echo "Tag ($tag_name) does not match manifest version v${VERSION}" >&2
+          TAG="${GITHUB_REF_NAME}"
+          EXPECTED="v${{ steps.meta.outputs.version }}"
+          if [ "$TAG" != "$EXPECTED" ]; then
+            echo "Tag/version mismatch:"
+            echo "  Tag:           $TAG"
+            echo "  manifest.json: ${{ steps.meta.outputs.version }}"
+            echo "  Expected tag:  $EXPECTED"
             exit 1
           fi
 
-      - name: Package Python files into zip
-        if: ${{ steps.check.outputs.on_main == 'true' }}
+      - name: Create ZIP package (folder at root)
         shell: bash
         run: |
           set -euo pipefail
-          files=$(git ls-files '*.py')
-          if [ -z "$files" ]; then
-            echo "No Python files found to package" >&2
-            exit 1
-          fi
-          zip -r DragonValeHack.zip $files
+          ZIP="${{ steps.meta.outputs.zip }}"
+          DIR="${{ steps.meta.outputs.dir }}"
 
-      - name: Create or update GitHub Release
-        if: ${{ steps.check.outputs.on_main == 'true' }}
+          rm -rf "$DIR" excludes.txt
+          mkdir -p "$DIR"
+
+          cat > excludes.txt << 'EOF'
+          .git/
+          .github/
+          .vscode/
+          __pycache__/
+          */__pycache__/
+          *.zip
+          dist/
+          excludes.txt
+          EOF
+
+          INCLUDE_README="${{ github.event.inputs.include_readme || 'false' }}"
+          if [ "$INCLUDE_README" != "true" ]; then
+            echo "README.md" >> excludes.txt
+          fi
+
+          rsync -a --exclude-from=excludes.txt ./ "$DIR/"
+          zip -r "$ZIP" "$DIR"
+
+      - name: Create or update GitHub Release (no generated notes)
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref_name }}
           name: DragonValeHack ${{ github.ref_name }}
-          artifacts: DragonValeHack.zip
-          allowUpdates: true
-          replacesArtifacts: true
+          artifacts: ${{ steps.meta.outputs.zip }}
+          allowUpdates: ${{ github.event.inputs.replace_assets || 'true' }}
+          replacesArtifacts: ${{ github.event.inputs.replace_assets || 'true' }}
           draft: false
           makeLatest: true
           generateReleaseNotes: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
