@@ -1,0 +1,76 @@
+name: Release DragonValeHack
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify tagged commit is on main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          if git merge-base --is-ancestor "${GITHUB_SHA}" "origin/main"; then
+            echo "Tagged commit is on main"
+          else
+            echo "Tagged commit is NOT on main" >&2
+            exit 1
+          fi
+
+      - name: Read version from manifest.json
+        id: manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          ver=$(python - <<'PY'
+import json, sys
+with open('manifest.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+ver = data.get('version', '').strip()
+if not ver:
+    raise SystemExit('version missing in manifest.json')
+print(ver)
+PY
+          )
+          echo "VERSION=$ver" >> "$GITHUB_ENV"
+          echo "Version from manifest: $ver"
+
+      - name: Validate tag matches manifest version
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag_name="${GITHUB_REF_NAME}"
+          if [ "v${VERSION}" != "$tag_name" ]; then
+            echo "Tag ($tag_name) does not match manifest version v${VERSION}" >&2
+            exit 1
+          fi
+
+      - name: Package Python files into zip
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=$(git ls-files '*.py')
+          if [ -z "$files" ]; then
+            echo "No Python files found to package" >&2
+            exit 1
+          fi
+          zip -r DragonValeHack.zip $files
+
+      - name: Create GitHub Release and upload asset
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: DragonValeHack v${{ env.VERSION }}
+          files: |
+            DragonValeHack.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

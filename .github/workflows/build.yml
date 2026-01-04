@@ -1,0 +1,31 @@
+name: Build DragonValeHack Zip
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Package Python files into zip
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=$(git ls-files '*.py')
+          if [ -z "$files" ]; then
+            echo "No Python files found to package" >&2
+            exit 1
+          fi
+          echo "$files" | tr ' ' '\n'
+          zip -r DragonValeHack.zip $files
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DragonValeHack.zip
+          path: DragonValeHack.zip
+          if-no-files-found: error
