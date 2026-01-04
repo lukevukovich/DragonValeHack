@@ -1,16 +1,17 @@
 name: Release DragonValeHack
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
-  guard:
-    if: ${{ startsWith(github.ref_name, 'v') }}
+  release:
     runs-on: ubuntu-latest
-    outputs:
-      should_release: ${{ steps.check.outputs.should_release }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,26 +30,16 @@ jobs:
           git fetch --tags
           tag_commit=$(git rev-parse "refs/tags/${TAG_NAME}^{commit}")
           if git merge-base --is-ancestor "${tag_commit}" "origin/main"; then
-            echo "Tagged commit is on main"
-            echo "should_release=true" >> "$GITHUB_OUTPUT"
+            echo "on_main=true" >> "$GITHUB_OUTPUT"
+            echo "Tag $TAG_NAME points to main (OK)"
           else
-            echo "Tagged commit is NOT on main" >&2
-            echo "should_release=false" >> "$GITHUB_OUTPUT"
+            echo "on_main=false" >> "$GITHUB_OUTPUT"
+            echo "Tag $TAG_NAME does not point to main; skipping release"
           fi
-
-  release:
-    needs: guard
-    if: ${{ needs.guard.outputs.should_release == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          fetch-tags: true
 
       - name: Read version from manifest.json
         id: manifest
+        if: ${{ steps.check.outputs.on_main == 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -66,18 +57,18 @@ PY
           echo "Version from manifest: $ver"
 
       - name: Validate tag matches manifest version
-        env:
-          TAG_NAME: ${{ github.ref_name }}
+        if: ${{ steps.check.outputs.on_main == 'true' }}
         shell: bash
         run: |
           set -euo pipefail
-          tag_name="${TAG_NAME}"
+          tag_name="${GITHUB_REF_NAME}"
           if [ "v${VERSION}" != "$tag_name" ]; then
             echo "Tag ($tag_name) does not match manifest version v${VERSION}" >&2
             exit 1
           fi
 
       - name: Package Python files into zip
+        if: ${{ steps.check.outputs.on_main == 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -88,12 +79,17 @@ PY
           fi
           zip -r DragonValeHack.zip $files
 
-      - name: Create GitHub Release and upload asset
-        uses: softprops/action-gh-release@v1
+      - name: Create or update GitHub Release
+        if: ${{ steps.check.outputs.on_main == 'true' }}
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ github.ref_name }}
-          name: DragonValeHack v${{ env.VERSION }}
-          files: |
-            DragonValeHack.zip
+          tag: ${{ github.ref_name }}
+          name: DragonValeHack ${{ github.ref_name }}
+          artifacts: DragonValeHack.zip
+          allowUpdates: true
+          replacesArtifacts: true
+          draft: false
+          makeLatest: true
+          generateReleaseNotes: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
