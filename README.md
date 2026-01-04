@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/gems.png" alt="DragonValeHack logo" width="80" />
+  <img src="assets/gems.png" alt="DragonValeHack logo" width="72" />
 </p>
 
 <h1 align="center">DragonValeHack</h1>
