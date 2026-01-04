@@ -18,7 +18,6 @@ Items:
     - Famed Flat Rock (below level 11)
 """
 
-
 def main():
     """
     Main function to execute the Item Hack script.
@@ -57,7 +56,6 @@ def main():
     hack.move_and_click(1150, 900, sleep=1.5)  # Buy the item for free
     hack.move_and_click(1550, 950)  # Place the item in the free slot
     print("\nHack automation complete")
-
 
 if __name__ == "__main__":
     START = time.time()

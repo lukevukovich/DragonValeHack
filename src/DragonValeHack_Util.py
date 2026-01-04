@@ -18,7 +18,6 @@ RESOURCE_MAPPING = {
     "Ethereum": 22
 }
 
-
 def get_item() -> str:
     """
     Get the item to hack from the user.
@@ -40,7 +39,6 @@ def get_item() -> str:
                 print(f"Invalid choice. Please select a number between 1 and {len(ITEM_MAPPING)}.")
         except ValueError:
             print("Invalid input. Please enter a number.")
-
 
 def get_resource() -> str:
     """
@@ -64,7 +62,6 @@ def get_resource() -> str:
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-
 def get_resource_value(resource: str) -> int:
     """
     Get the resource value to hack from the user.
@@ -78,7 +75,6 @@ def get_resource_value(resource: str) -> int:
             return value
         except ValueError:
             print("Invalid input. Please enter a number.")
-
 
 def get_resources() -> dict:
     """
@@ -104,7 +100,6 @@ def get_resources() -> dict:
 
     return resource_mapping
 
-
 def get_add_or_remove() -> str:
     """
     Get whether to add or remove resources from the user.
@@ -124,7 +119,6 @@ def get_add_or_remove() -> str:
                 print("Invalid choice. Please select 1 or 2.")
         except ValueError:
             print("Invalid input. Please enter a number.")
-
 
 def get_num_entries() -> int:
     """

@@ -2,7 +2,6 @@ import pyautogui
 import time
 import pyperclip
 
-
 class DragonValeHack():
     """
     This class is designed to automate interactions with the Game Guardian overlay in DragonVale using Nox simulator.
@@ -12,7 +11,6 @@ class DragonValeHack():
         Initializes the DragonValeHack class.
         """
         pass
-
 
     def move_and_click(self, x: int, y: int, sleep: float = 0) -> None:
         """
@@ -27,20 +25,17 @@ class DragonValeHack():
         pyautogui.click()
         time.sleep(sleep)
 
-
     def open_game_guardian(self) -> None:
         """
         Opens the Game Guardian overlay.
         """
         self.move_and_click(70, 80, sleep=0.5)
 
-    
     def close_game_guardian(self) -> None:
         """
         Closes the Game Guardian overlay.
         """
         self.move_and_click(1800, 80, sleep=0.3)
-
 
     def select_process(self) -> None:
         """
@@ -55,7 +50,6 @@ class DragonValeHack():
         """
         self.move_and_click(650, 90, sleep=0.5)
 
-
     def select_qword_search_type(self) -> None:
         """
         Selects the Q-Word search option in the Game Guardian overlay.
@@ -69,13 +63,11 @@ class DragonValeHack():
         time.sleep(0.5)
         pyautogui.click()
 
-
     def click_search_button(self) -> None:
         """
         Clicks the search button in the Game Guardian overlay.
         """
         self.move_and_click(1730, 230, sleep=0.5)
-
 
     def click_change_all_values_button(self) -> None:
         """
@@ -83,13 +75,11 @@ class DragonValeHack():
         """
         self.move_and_click(1650, 230, sleep=0.5)
 
-
     def click_yes_button(self) -> None:
         """
         Clicks the yes button in the Game Guardian overlay.
         """
         self.move_and_click(1650, 830, sleep=1)
-
 
     def click_first_result(self) -> None:
         """
@@ -129,7 +119,6 @@ class DragonValeHack():
                 break
         return i
 
-
     def enter_qword_value(self, value: int, interval: float = 0.3) -> None:
         """
         Enters Q-Word value into the input field by simulating mouse clicks.
@@ -153,7 +142,6 @@ class DragonValeHack():
                 pass
             x, y = number_mapping[digit]
             self.move_and_click(x, y, sleep=interval)
-
 
     def search(self) -> None:
         """
@@ -179,7 +167,6 @@ class DragonValeHack():
         """
         pyautogui.typewrite(value, interval=interval)
 
-
     def arrow(self, direction: str, count: int = 1, interval: float = 0.15) -> None: 
         """
         Simulates pressing the down arrow key to scroll through the list of results in the Game Guardian overlay.
@@ -187,7 +174,6 @@ class DragonValeHack():
         for _ in range(count):
             pyautogui.press(direction)
             time.sleep(interval)
-            
 
     def press_key(self, key: str, sleep: float = 0.3) -> None:
         """
@@ -199,7 +185,6 @@ class DragonValeHack():
         """
         pyautogui.press(key)
         time.sleep(sleep)
-
     
     def get_copy_value(self) -> str:
         """
@@ -213,7 +198,6 @@ class DragonValeHack():
         value = pyperclip.paste()
         return value
     
-
     def wait(self, seconds: float) -> None:
         """
         Waits for a specified number of seconds.

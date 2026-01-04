@@ -26,7 +26,6 @@ Resources:
     - Ethereum
 """
 
-
 def hack_resources(hack: DragonValeHack, resource_mapping: dict, add_or_remove: str) -> None:
     """
     Iteratively hack each resource in the provided mapping.
@@ -46,20 +45,19 @@ def hack_resources(hack: DragonValeHack, resource_mapping: dict, add_or_remove: 
             hack.press_key("enter", sleep=0.8) # Press enter to select the resource value
             hack.move_and_click(700, 740, sleep=0.8) # Select Q-Word type
             if resource != "DragonCash" and hack.get_copy_value() != "0":
-                print(f"Bad entry detected, skipping")
+                print(f"Bad record detected, skipping")
                 hack.select_search_tab() # Click off item
                 return # If the copied value is not 0, exit the function
             hack.enter_qword_value(-resource_value if add_or_remove == "add" else resource_value) # Press each key to change value to the desired amount
             hack.click_yes_button() # Click yes button
             hack.arrow("down") # Reposition selection
-            print(f"{"Added" if add_or_remove == "add" else "Removed"} {resource_value} {resource}")
+            print(f"{"Added" if add_or_remove == "add" else "Removed"} {resource_value:,} {resource}")
 
         if skip_count >= resource_skips[-1]: # If we've processed all resources in the mapping, exit the loop
             break
 
         hack.arrow("down") # Move down to the next resource in the list
         skip_count += 1
-
 
 def main():
     """
@@ -90,7 +88,7 @@ def main():
         value = resource_mapping["DragonCash"]["value"] # Get the value of DragonCash to hack
         hack.enter_qword_value(-value if add_or_remove == "add" else value) # For DragonCash, directly set the value to the desired amount
         hack.click_yes_button() # Click yes button
-        print(f"{"Added" if add_or_remove == "add" else "Removed"} {value} DragonCash")
+        print(f"{"Added" if add_or_remove == "add" else "Removed"} {value:,} DragonCash")
     else:
         hack.wait(0.5) # Wait
         hack.enter_qword_value(0) # Press each key to change value to 0
@@ -109,7 +107,7 @@ def main():
         print(f"\nFound {entries} entries, proceeding with hack...")
 
         for i in range(entries):
-            print(f"\nHacking entry {i + 1} of {entries}...")
+            print(f"\nHacking record {i + 1} of {entries}...")
             hack.click_result(i + 1) # Click on the result
             hack.wait(0.8) # Wait
             hack.goto() # Go to the resource value
@@ -123,7 +121,6 @@ def main():
         hack.move_and_click(730, 830, sleep=1.2) # If removing resource, click buy button to buy the item
     hack.move_and_click(1550, 950) # Place the Galaxy Flag in the free slot
     print("\nHack automation complete")
-
 
 if __name__ == "__main__":
     START = time.time()
