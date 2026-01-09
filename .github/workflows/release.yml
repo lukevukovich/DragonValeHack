@@ -60,7 +60,7 @@ jobs:
           workflow: build.yml
           workflow_conclusion: success
           branch: main
-          name: DragonValeHack.zip
+          name: DragonValeHack-${{ steps.meta.outputs.version }}.zip
           path: artifacts
 
       - name: Create or update GitHub Release (no generated notes)
@@ -68,7 +68,7 @@ jobs:
         with:
           tag: ${{ github.ref_name }}
           name: DragonValeHack ${{ github.ref_name }}
-          artifacts: artifacts/DragonValeHack.zip
+          artifacts: artifacts/DragonValeHack-${{ steps.meta.outputs.version }}.zip
           allowUpdates: ${{ github.event.inputs.replace_assets || 'true' }}
           replacesArtifacts: ${{ github.event.inputs.replace_assets || 'true' }}
           draft: false
