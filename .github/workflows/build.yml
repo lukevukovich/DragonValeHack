@@ -20,13 +20,7 @@ jobs:
             echo "manifest.json not found" >&2
             exit 1
           fi
-          version=$(python - <<'PY'
-import json
-with open('manifest.json','r',encoding='utf-8') as f:
-    data=json.load(f)
-print(data.get('version','0.0.0'))
-PY
-          )
+          version=$(python3 -c "import json;print(json.load(open('manifest.json','r',encoding='utf-8')).get('version','0.0.0'))")
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
       - name: Package Python files into zip
