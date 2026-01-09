@@ -33,7 +33,11 @@ jobs:
           if [ -f README.md ]; then
             include_readme="README.md"
           fi
-          if [ -z "$files" ] && [ -z "$lua_files" ] && [ -z "$include_readme" ]; then
+          lua_readme=""
+          if [ -f lua/README.md ]; then
+            lua_readme="lua/README.md"
+          fi
+          if [ -z "$files" ] && [ -z "$lua_files" ] && [ -z "$include_readme" ] && [ -z "$lua_readme" ]; then
             echo "No files found to package" >&2
             exit 1
           fi
@@ -42,7 +46,10 @@ jobs:
           if [ -n "$include_readme" ]; then
             echo "$include_readme"
           fi
-          zip -r "DragonValeHack-${{ steps.manifest.outputs.version }}.zip" $files $lua_files $include_readme
+          if [ -n "$lua_readme" ]; then
+            echo "$lua_readme"
+          fi
+          zip -r "DragonValeHack-${{ steps.manifest.outputs.version }}.zip" $files $lua_files $include_readme $lua_readme
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
