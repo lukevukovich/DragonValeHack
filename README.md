@@ -55,11 +55,11 @@ Then navigate to configurations, and choose `Select memory ranges`. Ensure `O: O
 
 ### Common
 
-#### DragonValeHack Class ([src/DragonValeHack.py](src/DragonValeHack.py))
+#### DragonValeHack Class ([DragonValeHack.py](src/DragonValeHack.py))
 Contains common functions and constants used by all hack scripts.
 Intended to be extensible and reusable for future hacks/updates.
 
-#### DragonValeHack Utilities ([src/DragonValeHack_Util.py](src/DragonValeHack_Util.py))
+#### DragonValeHack Utilities ([DragonValeHack_Util.py](src/DragonValeHack_Util.py))
 Contains utility functions for user input and validation.
 
 ### Item Hack ([ItemHack_Main.py](ItemHack_Main.py))
@@ -105,8 +105,12 @@ Supports adding and removing resources.
 - Select Add or Remove
 - Select item using to hack (Famed Flat Rock or Galaxy Flag)
 
-### Lua Script
+### Lua Script ([DragonValeHack.lua](lua/DragonValeHack.lua))
 The Lua script version of DragonValeHack provides the same functionality as the Python scripts but is designed to be run directly within GameGuardian. See [Lua README](lua/README.md) for more information.
+
+I recommend using the Lua script if you prefer to run the hack directly within GameGuardian without relying on external Python scripts.
+
+The Python scripts are useful to automate the entire process (including handling DragonVale's UI interactions, performing the hacks, and applying the results).
 
 ### Toolkit Notes
 - If hacks are not working, ensure all setup and usage steps were followed correctly

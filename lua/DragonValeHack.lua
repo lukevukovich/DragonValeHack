@@ -1,4 +1,4 @@
--- DragonVale All-in-One Hacks for GameGuardian
+-- DragonValeHack's All-in-One Lua script for GameGuardian
 -- Organized single script with menu for: Item Hack, Resource Hack, Multi-Resource Hack
 
 -- Safety/version gate (optional minimal build only)
