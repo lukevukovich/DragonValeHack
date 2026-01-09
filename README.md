@@ -4,7 +4,7 @@
 
 <h1 align="center">DragonValeHack</h1>
 
-<p align="center">Python scripts designed to automate DragonVale resource exploits using Nox emulator and GameGuardian.</p>
+<p align="center">Scripts designed to automate DragonVale resource exploits using Nox emulator and GameGuardian.</p>
 
 ## How It Works
 DragonVale has no server-side checks for resources, so it is possible to manipulate the game client to give you any amount of resources you want.
@@ -55,14 +55,14 @@ Then navigate to configurations, and choose `Select memory ranges`. Ensure `O: O
 
 ### Common
 
-#### DragonValeHack Class (src/DragonValeHack.py)
+#### DragonValeHack Class ([src/DragonValeHack.py](src/DragonValeHack.py))
 Contains common functions and constants used by all hack scripts.
 Intended to be extensible and reusable for future hacks/updates.
 
-#### DragonValeHack Utilities (src/DragonValeHack_Utils.py)
+#### DragonValeHack Utilities ([src/DragonValeHack_Util.py](src/DragonValeHack_Util.py))
 Contains utility functions for user input and validation.
 
-### Item Hack (ItemHack_Main.py)
+### Item Hack ([ItemHack_Main.py](ItemHack_Main.py))
 Automates the process of hacking in an item for free from the market.
 Process will intercept item's sell value and change it to 0.
 
@@ -70,7 +70,7 @@ __Note:__ This item can later be used to hack resources. If you have enough mone
 
 #### Supported Items
 - Famed Flat Rock (under level 11)
-- Galaxy Flag (level 11 and above)
+- Galaxy Flag (level 11 and above, more reliable due to unique value)
 
 #### Usage
 - Ensure GameGuardian is running and DragonVale is open
@@ -78,7 +78,7 @@ __Note:__ This item can later be used to hack resources. If you have enough mone
 - Run script
 - Select item to hack for free (Famed Flat Rock or Galaxy Flag)
 
-### Resource Hack (ResourceHack_Main.py)
+### Resource Hack ([ResourceHack_Main.py](ResourceHack_Main.py))
 Automates the process of hacking a resource with any value.
 Process will intercept item's "Buy Another" value and alter the resource and the value it returns.
 Supports adding and removing resources.
@@ -92,7 +92,7 @@ Supports adding and removing resources.
 - Select Add or Remove
 - Select item using to hack (Famed Flat Rock or Galaxy Flag)
 
-### Multi-Resource Hack (MultiResourceHack_Main.py)
+### Multi-Resource Hack ([MultiResourceHack_Main.py](MultiResourceHack_Main.py))
 Automates the process of hacking multiple resources with any value through one sale.
 Process will intercept item's "Buy Another" value and alter the resources and values they return.
 Supports adding and removing resources.
@@ -104,6 +104,9 @@ Supports adding and removing resources.
 - Enter amount to hack for each resource
 - Select Add or Remove
 - Select item using to hack (Famed Flat Rock or Galaxy Flag)
+
+### Lua Script
+The Lua script version of DragonValeHack provides the same functionality as the Python scripts but is designed to be run directly within GameGuardian. See [Lua README](lua/README.md) for more information.
 
 ### Toolkit Notes
 - If hacks are not working, ensure all setup and usage steps were followed correctly
