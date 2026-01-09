@@ -1,5 +1,5 @@
 {
     "name": "DragonValeHack",
-    "version": "1.0.0",
-    "description": "Python scripts designed to automate DragonVale resource exploits using Nox emulator and GameGuardian."
+    "version": "1.0.1",
+    "description": "Scripts designed to automate DragonVale resource exploits using Nox emulator and GameGuardian."
 }

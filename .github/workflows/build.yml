@@ -11,28 +11,48 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Extract version from manifest
+        id: manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f manifest.json ]; then
+            echo "manifest.json not found" >&2
+            exit 1
+          fi
+          version=$(python - <<'PY'
+import json
+with open('manifest.json','r',encoding='utf-8') as f:
+    data=json.load(f)
+print(data.get('version','0.0.0'))
+PY
+          )
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
       - name: Package Python files into zip
         shell: bash
         run: |
           set -euo pipefail
           files=$(git ls-files '*.py')
+          lua_files=$(git ls-files 'lua/*.lua')
           include_readme=""
           if [ -f README.md ]; then
             include_readme="README.md"
           fi
-          if [ -z "$files" ] && [ -z "$include_readme" ]; then
+          if [ -z "$files" ] && [ -z "$lua_files" ] && [ -z "$include_readme" ]; then
             echo "No files found to package" >&2
             exit 1
           fi
           echo "$files" | tr ' ' '\n'
+          echo "$lua_files" | tr ' ' '\n'
           if [ -n "$include_readme" ]; then
             echo "$include_readme"
           fi
-          zip -r DragonValeHack.zip $files $include_readme
+          zip -r "DragonValeHack-${{ steps.manifest.outputs.version }}.zip" $files $lua_files $include_readme
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: DragonValeHack.zip
-          path: DragonValeHack.zip
+          name: DragonValeHack-${{ steps.manifest.outputs.version }}.zip
+          path: DragonValeHack-${{ steps.manifest.outputs.version }}.zip
           if-no-files-found: error
