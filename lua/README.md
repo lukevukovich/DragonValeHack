@@ -8,13 +8,13 @@ For more information regarding Game Guardian Lua support, visit [https://gamegua
 ### Item Hack ([DragonValeHack.lua, line 192](DragonValeHack.lua#L192))
 - Ensure GameGuardian is running and DragonVale is open
 - Open the store, go to decorations, and search the name of the supported items ('Famed Flat Rock' or 'Galaxy Flag') so that the item is in the first position
-- Run the `DragonValeHack.lua` script in GameGuardian
+- Run the `DragonValeHack.lua` script in GameGuardian, select `Item Hack`
 - Once the hack completes, buy the item for free
 
 ### Resource Hack ([DragonValeHack.lua, line 250](DragonValeHack.lua#L250))
 - Ensure GameGuardian is running and DragonVale is open
 - Ensure item (Famed Flat Rock or Galaxy Flag) is selected and "Buy Another" option is present (with free 1x1 slot nearby)
-- Run the `DragonValeHack.lua` script in GameGuardian
+- Run the `DragonValeHack.lua` script in GameGuardian, select `Resource Hack`
 - Select resource to hack
 - Enter amount to hack
 - Select Add or Remove
@@ -24,7 +24,7 @@ For more information regarding Game Guardian Lua support, visit [https://gamegua
 ### Multi-Resource Hack ([DragonValeHack.lua, line 278](DragonValeHack.lua#L278))
 - Ensure GameGuardian is running and DragonVale is open
 - Ensure item (Famed Flat Rock or Galaxy Flag) is selected and "Buy Another" option is present (with free 1x1 slot nearby)
-- Run the `DragonValeHack.lua` script in GameGuardian
+- Run the `DragonValeHack.lua` script in GameGuardian, select `Multi-Resource Hack`
 - Select resources to hack
 - Enter amount to hack for each resource
 - Select Add or Remove
