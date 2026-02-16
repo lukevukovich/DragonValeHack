@@ -4,6 +4,7 @@ The DragonValeHack Lua script is designed to work with GameGuardian and provide 
 For more information regarding Game Guardian Lua support, visit [https://gameguardian.net/help/index.html](https://gameguardian.net/help/index.html)
 
 ## Hack Usage
+View the [DragonValeHack - Lua Showcase Video](lua-showcase.mp4) for a full demonstration of the hack in action.
 
 ### Item Hack ([DragonValeHack.lua, line 192](DragonValeHack.lua#L192))
 - Ensure GameGuardian is running and DragonVale is open
